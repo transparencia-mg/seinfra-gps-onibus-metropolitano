@@ -6,7 +6,7 @@ Cada registro é uma posição enviada por um veículo durante uma viagem, com a
 
 - **Um arquivo por dia**, chamado `gps-onibus-metropolitano-AAAA-MM-DD.csv.gz`.
 - Os arquivos são **CSV compactados (.gz)**, com separador `;` e codificação UTF-8. Para abrir, basta descompactar (7-Zip, WinRAR ou o próprio Windows 11). Python, R, QGIS e DuckDB leem o `.gz` diretamente, sem descompactar.
-- Cada dia tem cerca de 3 milhões de linhas. **O Excel abre no máximo 1.048.576 linhas**, então ele não consegue abrir um dia inteiro. Use Python, R, Power BI, QGIS ou DuckDB.
+- Cada dia tem cerca de 3 milhões de linhas. Use Python, R, Power BI, QGIS ou DuckDB.
 - O recurso **lista-de-arquivos-{ANO}.txt** traz o link de todos os arquivos do ano, um por linha.
 
 ## Como baixar o ano inteiro de uma vez
@@ -47,4 +47,3 @@ for (u in urls) download.file(u, basename(u), mode = "wb")
 ## Observações
 
 - As coordenadas estão em graus decimais, sistema WGS 84 (EPSG:4326), com **ponto** como separador decimal.
-- Coordenadas fora da RMBH, provavelmente erros de registro do equipamento, foram deixadas em branco.

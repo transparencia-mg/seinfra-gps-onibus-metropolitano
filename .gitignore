@@ -1,0 +1,18 @@
+# dados (ficam só no computador/rede e no dados.mg, nunca no GitHub)
+*/data/*
+!*/data/.gitkeep
+*.csv
+*.gz
+*.zip
+*.parcial
+
+# ambiente Python e credenciais
+venv/
+.venv/
+.env
+__pycache__/
+*.pyc
+
+# gerados pelos scripts
+erro-*.txt
+*/temp/

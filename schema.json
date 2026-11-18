@@ -1,0 +1,20 @@
+{
+  "fields": [
+    {"name": "data_referencia", "type": "date", "title": "Data de referência", "description": "Dia de operação a que o registro se refere (AAAA-MM-DD)."},
+    {"name": "cod_linha", "type": "string", "title": "Código da linha", "description": "Código da linha metropolitana."},
+    {"name": "nome_atendimento", "type": "string", "title": "Nome do atendimento", "description": "Nome da linha/atendimento."},
+    {"name": "consorcio", "type": "string", "title": "Consórcio", "description": "Consórcio operador da linha."},
+    {"name": "posicao", "type": "string", "title": "Posição", "description": "Posição (tabela/escala) do veículo na programação. Pode conter letras, ex.: C31."},
+    {"name": "sentido", "type": "integer", "title": "Sentido", "description": "Sentido da viagem (0 ou 1)."},
+    {"name": "prefixo_veiculo", "type": "string", "title": "Prefixo do veículo", "description": "Número de identificação do ônibus."},
+    {"name": "data_escala", "type": "date", "title": "Data da escala", "description": "Data da escala de trabalho (AAAA-MM-DD)."},
+    {"name": "inicio_viagem_realizado", "type": "datetime", "format": "%Y-%m-%dT%H:%M:%S", "title": "Início da viagem", "description": "Data e hora de início da viagem realizada."},
+    {"name": "fim_viagem_realizado", "type": "datetime", "format": "%Y-%m-%dT%H:%M:%S", "title": "Fim da viagem", "description": "Data e hora de fim da viagem realizada. Vazio quando não registrado."},
+    {"name": "data_hora_gps", "type": "datetime", "format": "%Y-%m-%dT%H:%M:%S", "title": "Data e hora do GPS", "description": "Momento em que a posição foi registrada."},
+    {"name": "latitude", "type": "number", "title": "Latitude", "description": "Latitude em graus decimais, WGS 84 (EPSG:4326). Separador decimal: ponto."},
+    {"name": "longitude", "type": "number", "title": "Longitude", "description": "Longitude em graus decimais, WGS 84 (EPSG:4326). Separador decimal: ponto."},
+    {"name": "id_ponto", "type": "integer", "title": "Identificador do ponto", "description": "Ponto de parada mais próximo. Vazio quando o veículo não está em um ponto."},
+    {"name": "entrada_ponto", "type": "boolean", "title": "Entrada no ponto", "description": "true quando o registro marca a chegada do veículo ao ponto."}
+  ],
+  "missingValues": [""]
+}

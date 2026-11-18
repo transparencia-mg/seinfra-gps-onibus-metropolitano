@@ -1,46 +1,122 @@
-# Uso (tudo pelo computador)
+# Passo a passo: publicação do GPS dos ônibus metropolitanos no dados.mg
 
-## 1. Baixar o repositório (primeira vez)
+Os comandos devem ser digitados no **Git Bash**.
+
+## Configuração (uma vez só)
+
+### 1. Instalar os programas
+
+- Python: https://www.python.org/downloads (na instalação, marque **Add Python to PATH**)
+- Git: https://git-scm.com/downloads
+
+### 2. Pedir os acessos
+
+- Usuário no dados.mg incluído na organização da SEINFRA como **Editor** (pedir à CGE).
+- Permissão de escrita no repositório `transparencia-mg/seinfra-gps-onibus-metropolitano` no GitHub (pedir à CGE).
+
+### 3. Identificar-se no Git
 
 ```bash
+git config --global user.name "Seu Nome"
+git config --global user.email "seu.email@infraestrutura.mg.gov.br"
+```
+
+### 4. Baixar o repositório
+
+```bash
+cd /c/
 git clone https://github.com/transparencia-mg/seinfra-gps-onibus-metropolitano.git
 cd seinfra-gps-onibus-metropolitano
+```
+
+### 5. Criar o ambiente Python
+
+```bash
 python -m venv venv
 . venv/Scripts/activate
 pip install -r requirements.txt
-copy .env.exemplo .env
 ```
 
-Abra o `.env` e preencha `CKAN_HOST`, `CKAN_KEY` (a **sua** chave do dados.mg) e `OWNER_ORG`. O `.env` fica só no seu computador e nunca vai para o GitHub.
+### 6. Gerar a chave de API no dados.mg
 
-## 2. Atualizar o repositório (toda vez, antes de começar)
+- Entrar em https://dados.mg.gov.br com o seu usuário.
+- Clicar no seu nome > **API Tokens** > dar um nome (ex.: `gps`) > **Create API Token**.
+- Copiar a chave gerada.
+
+### 7. Criar o arquivo .env
 
 ```bash
-cd seinfra-gps-onibus-metropolitano
+cp .env.exemplo .env
+notepad .env
+```
+
+Deixar o conteúdo exatamente assim, colando a sua chave, e salvar:
+
+```
+CKAN_HOST=https://dados.mg.gov.br
+CKAN_KEY=cole-aqui-a-sua-chave
+OWNER_ORG=secretaria-de-estado-de-infraestrutura-e-mobilidade-de-minas-gerais-seinfra
+```
+
+## Publicação (a cada arquivo)
+
+### 1. Abrir a pasta e ativar o ambiente
+
+```bash
+cd /c/seinfra-gps-onibus-metropolitano
 . venv/Scripts/activate
+```
+
+### 2. Atualizar o repositório
+
+```bash
 git pull
 ```
 
-## 3. Preparar os arquivos
+### 3. Preparar o arquivo
+
+Um arquivo:
 
 ```bash
-python scripts/preparar_gps.py "L:\caminho\arquivo.zip"    # um arquivo
-python scripts/preparar_gps.py "L:\caminho\pasta"          # vários dias: todos os .zip/.csv da pasta
+python scripts/preparar_gps.py "/c/Users/SEU_USUARIO/Downloads/NOME_DO_ARQUIVO.zip"
 ```
 
-Se precisar refazer um dia já preparado, acrescente `--substituir`.
-
-## 4. Publicar no dados.mg (o datapackage.json é atualizado junto)
+Vários dias (todos os .zip de uma pasta):
 
 ```bash
-python scripts/publicar_gps.py --ano 2026                         # simulação: só confere
-python scripts/publicar_gps.py --ano 2026 --executar              # todos os dias preparados
-python scripts/publicar_gps.py --ano 2026 --mes 2026-09 --executar      # só um mês
-python scripts/publicar_gps.py --ano 2026 --so 2026-09-19 --executar    # só um dia
+python scripts/preparar_gps.py "/c/caminho/da/pasta"
 ```
 
-## 5. Atualizar o GitHub
+### 4. Conferir
+
+```bash
+python scripts/publicar_gps.py --ano 2026
+```
+
+### 5. Publicar no dados.mg
+
+```bash
+python scripts/publicar_gps.py --ano 2026 --executar
+```
+
+### 6. Atualizar o GitHub
 
 ```bash
 python scripts/atualizar_github.py
 ```
+
+### 7. Conferir no portal
+
+https://dados.mg.gov.br/dataset/gps-onibus-metropolitano-2026
+
+## Corrigir um dia já publicado
+
+```bash
+python scripts/preparar_gps.py "/c/caminho/arquivo_corrigido.zip" --substituir
+python scripts/publicar_gps.py --ano 2026 --so 2026-09-19 --executar
+python scripts/atualizar_github.py
+```
+
+## Virada do ano
+
+Trocar `--ano 2026` por `--ano 2027` nos passos 4 e 5. O conjunto `gps-onibus-metropolitano-2027` é criado automaticamente.

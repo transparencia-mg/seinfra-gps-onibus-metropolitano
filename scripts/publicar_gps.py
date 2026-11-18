@@ -39,7 +39,6 @@ from datetime import date
 from pathlib import Path
 
 # ------------------------------------------------------------------ configuração
-ORGANIZACAO = "PREENCHER"   # 'name' da organização no dados.mg (ex.: controladoria-geral-do-estado-cge)
 PREFIXO = "gps-onibus-metropolitano"
 LIMITE_MB = 300             # tamanho máximo de upload aceito hoje pelo dados.mg
 DIAS_SEMANA = ["segunda-feira", "terça-feira", "quarta-feira", "quinta-feira",
@@ -60,6 +59,7 @@ def carregar_env(arquivo=RAIZ / ".env"):
 carregar_env()
 HOST = (os.environ.get("CKAN_HOST") or "https://dados.mg.gov.br").rstrip("/")
 KEY = os.environ.get("CKAN_KEY")
+ORGANIZACAO = os.environ.get("OWNER_ORG", "")   # organização no dados.mg (secret OWNER_ORG)
 
 
 # ------------------------------------------------------------------ utilidades
@@ -199,9 +199,8 @@ def main():
     args = ap.parse_args()
     ano = args.ano
 
-    if ORGANIZACAO == "PREENCHER":
-        sys.exit("ERRO: preencha ORGANIZACAO no início de scripts/publicar_gps.py "
-                 "(nome da organização no dados.mg).")
+    if not ORGANIZACAO:
+        sys.exit("ERRO: OWNER_ORG não definido (secret do GitHub ou linha OWNER_ORG= no .env).")
     preparar_pasta_do_ano(ano)
     schema = json.loads((RAIZ / "schema.json").read_text(encoding="utf-8"))
     colunas = [f["name"] for f in schema["fields"]]

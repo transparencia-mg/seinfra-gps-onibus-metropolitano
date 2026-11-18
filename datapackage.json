@@ -1,8 +1,8 @@
 {
   "profile": "data-package",
-  "name": "gps-onibus-metropolitano-2026",
-  "title": "GPS dos ônibus metropolitanos da RMBH - 2026",
-  "description": "Posições de GPS dos ônibus do transporte coletivo metropolitano da RMBH em 2026.",
+  "name": "gps-onibus-metropolitano",
+  "title": "GPS dos ônibus metropolitanos da RMBH",
+  "description": "Posições de GPS dos ônibus do transporte coletivo metropolitano da RMBH, um arquivo por dia.",
   "owner_org": "secretaria-de-estado-de-infraestrutura-e-mobilidade-de-minas-gerais-seinfra",
   "keywords": [
     "transporte",
@@ -35,18 +35,18 @@
       "schema": "schema.json",
       "dialect": "dialect.json",
       "hash": "sha256:a453a53f518b1813ee485e636b0b3c082769c6812848bf4af6e8b539a6dc08a7",
-      "id": "ad8dec3f-bdf2-44be-ad0e-c4fcafe417de"
+      "id": "ce183052-dd1d-4fa0-8a95-7c23310ba7f9"
     },
     {
       "name": "lista-de-arquivos",
-      "path": "data/lista-de-arquivos-2026.txt",
-      "title": "Lista de arquivos de 2026 (para baixar o ano inteiro)",
-      "description": "Link de todos os arquivos diários do ano, um por linha. Veja na descrição do conjunto como usar.",
+      "path": "data/lista-de-arquivos.txt",
+      "title": "Lista de arquivos (para baixar vários dias de uma vez)",
+      "description": "Link de todos os arquivos diários, um por linha. Veja na descrição do conjunto como usar.",
       "profile": "data-resource",
       "format": "txt",
       "mediatype": "text/plain",
       "encoding": "utf-8",
-      "id": "7272b26a-9990-42a2-949d-07b8a7063841"
+      "id": "22540a8c-cfb6-47de-8fda-e4b8d4941a4a"
     }
   ]
 }

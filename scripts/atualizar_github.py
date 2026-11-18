@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
-Envia para o GitHub as alterações do repositório (datapackage.json de cada ano, README,
+Envia para o GitHub as alterações do repositório (datapackage.json, README,
 schemas, scripts), SEM arquivos de dados (.csv, .gz, .zip, .txt da pasta data).
 
 Uso (na raiz do repositório):
@@ -32,7 +32,7 @@ def main():
     preparados = [f for f in git("diff", "--cached", "--name-only").splitlines() if f]
     perigosos = [f for f in preparados
                  if f.lower().endswith(PROIBIDOS)
-                 or ("/data/" in f.replace("\\", "/") and not f.endswith(".gitkeep"))]
+                 or (f.replace("\\", "/").startswith("data/") and not f.endswith(".gitkeep"))]
     if perigosos:
         git("reset")
         sys.exit("ERRO: arquivos de dados iam para o GitHub e o envio foi cancelado:\n  "

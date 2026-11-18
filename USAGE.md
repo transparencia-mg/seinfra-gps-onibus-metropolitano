@@ -90,13 +90,13 @@ python scripts/preparar_gps.py "/c/caminho/da/pasta"
 ### 4. Conferir
 
 ```bash
-python scripts/publicar_gps.py --ano 2026
+python scripts/publicar_gps.py
 ```
 
 ### 5. Publicar no dados.mg
 
 ```bash
-python scripts/publicar_gps.py --ano 2026 --executar
+python scripts/publicar_gps.py --executar
 ```
 
 ### 6. Atualizar o GitHub
@@ -107,16 +107,12 @@ python scripts/atualizar_github.py
 
 ### 7. Conferir no portal
 
-https://dados.mg.gov.br/dataset/gps-onibus-metropolitano-2026
+https://dados.mg.gov.br/dataset/gps-onibus-metropolitano
 
 ## Corrigir um dia já publicado
 
 ```bash
 python scripts/preparar_gps.py "/c/caminho/arquivo_corrigido.zip" --substituir
-python scripts/publicar_gps.py --ano 2026 --so 2026-09-19 --executar
+python scripts/publicar_gps.py --so 2026-09-19 --executar
 python scripts/atualizar_github.py
 ```
-
-## Virada do ano
-
-Trocar `--ano 2026` por `--ano 2027` nos passos 4 e 5. O conjunto `gps-onibus-metropolitano-2027` é criado automaticamente.

@@ -11,7 +11,7 @@ O que faz:
      (ex.: '-1.987.577' -> '-19.87577'; '-4.378.705' -> '-43.78705').
   4. Converte data_referencia e data_escala para AAAA-MM-DD.
   5. Separa um arquivo por dia (pela coluna data_referencia) e grava compactado em
-        AAAA/data/gps-onibus-metropolitano-AAAA-MM-DD.csv.gz
+        data/gps-onibus-metropolitano-AAAA-MM-DD.csv.gz
   6. Mostra um resumo e PARA se houver problema.
 
 Uso (raiz do repositório, venv ativado):
@@ -38,6 +38,7 @@ COLUNAS = [
     "data_hora_gps", "latitude", "longitude", "id_ponto", "entrada_ponto",
 ]
 PREFIXO = "gps-onibus-metropolitano"
+RAIZ = Path(__file__).resolve().parent.parent
 PARTE = 500_000                       # linhas lidas por vez
 LIMITE_PROBLEMAS = 0.01               # para se mais de 1% das linhas tiver problema
 # Região Metropolitana de BH, com folga
@@ -45,9 +46,9 @@ FAIXA_LAT = (-21.0, -18.5)
 FAIXA_LON = (-45.0, -43.0)
 
 
-def carregar_env(arquivo=".env"):
+def carregar_env(arquivo=RAIZ / ".env"):
     if Path(arquivo).exists():
-        for linha in Path(arquivo).read_text(encoding="utf-8").splitlines():
+        for linha in Path(arquivo).read_text(encoding="utf-8-sig").splitlines():
             linha = linha.strip()
             if linha and not linha.startswith("#") and "=" in linha:
                 k, v = linha.split("=", 1)
@@ -152,8 +153,7 @@ def main():
 
                     for dia, parte in df[~ruim_data].groupby("data_referencia", sort=False):
                         if dia not in saidas:
-                            ano = dia[:4]
-                            pasta = Path(ano) / "data"
+                            pasta = RAIZ / "data"
                             pasta.mkdir(parents=True, exist_ok=True)
                             (pasta / ".gitkeep").touch()
                             final = pasta / f"{PREFIXO}-{dia}.csv.gz"
@@ -195,9 +195,8 @@ def main():
     print("\nArquivos prontos:")
     for dia in sorted(saidas):
         final = saidas[dia][1]
-        print(f"  {final}  ({final.stat().st_size / 1e6:.1f} MB)")
-    print("\nPróximo passo: python scripts/publicar_gps.py --ano "
-          f"{sorted(saidas)[0][:4]}   (simulação) e depois com --executar")
+        print(f"  {final.relative_to(RAIZ)}  ({final.stat().st_size / 1e6:.1f} MB)")
+    print("\nPróximo passo: python scripts/publicar_gps.py   (simulação) e depois com --executar")
 
 
 if __name__ == "__main__":

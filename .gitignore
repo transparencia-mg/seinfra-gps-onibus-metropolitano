@@ -1,6 +1,6 @@
 # dados (ficam só no computador/rede e no dados.mg, nunca no GitHub)
-*/data/*
-!*/data/.gitkeep
+data/*
+!data/.gitkeep
 *.csv
 *.gz
 *.zip
@@ -15,4 +15,4 @@ __pycache__/
 
 # gerados pelos scripts
 erro-*.txt
-*/temp/
+temp/
